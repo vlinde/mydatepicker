@@ -40,7 +40,7 @@ export class UtilService {
 
             let date: IMyDate = {year: year, month: month, day: day};
 
-            if (this.isDisabledDay(date, disableUntil, disableSince, disableWeekends, disableDays, disableDateRanges, enableDays)) {
+            if (this.isDisabledDay(date, minYear, maxYear, disableUntil, disableSince, disableWeekends, disableDays, disableDateRanges, enableDays)) {
                 return returnDate;
             }
 
@@ -125,11 +125,15 @@ export class UtilService {
         return month;
     }
 
-    isDisabledDay(date: IMyDate, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>, disableDateRanges: Array<IMyDateRange>, enableDays: Array<IMyDate>): boolean {
+    isDisabledDay(date: IMyDate, minYear: number, maxYear: number, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>, disableDateRanges: Array<IMyDateRange>, enableDays: Array<IMyDate>): boolean {
         for (let e of enableDays) {
             if (e.year === date.year && e.month === date.month && e.day === date.day) {
                 return false;
             }
+        }
+
+        if (date.year < minYear && date.month === 12 || date.year > maxYear && date.month === 1) {
+            return true;
         }
 
         let dateMs: number = this.getTimeInMilliseconds(date);
