@@ -333,8 +333,8 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     writeValue(value: any): void {
-        if (value && (value["date"] || value["jsdate"])) {
-            this.selectedDate = value["date"] ? this.parseSelectedDate(value["date"]) : this.parseSelectedDate(this.jsDateToMyDate(value["jsdate"]));
+        if (value && (value["date"] || value["jsdate"] || value["formatted"])) {
+            this.selectedDate = value["date"] ? this.parseSelectedDate(value["date"]) : value["jsdate"] ? this.parseSelectedDate(this.jsDateToMyDate(value["jsdate"])) : this.parseSelectedDate(value["formatted"]);
             let cvc: boolean = this.visibleMonth.year !== this.selectedDate.year || this.visibleMonth.monthNbr !== this.selectedDate.month;
             if (cvc) {
                 this.visibleMonth = {monthTxt: this.opts.monthLabels[this.selectedDate.month], monthNbr: this.selectedDate.month, year: this.selectedDate.year};
@@ -761,7 +761,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     parseSelectedDate(selDate: any): IMyDate {
-        // Parse selDate value - it can be string or IMyDate object
+        // Parse date value - it can be string or IMyDate object
         let date: IMyDate = {day: 0, month: 0, year: 0};
         if (typeof selDate === "string") {
             let sd: string = <string> selDate;
