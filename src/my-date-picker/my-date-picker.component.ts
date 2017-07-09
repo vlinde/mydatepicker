@@ -49,7 +49,8 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     @Output() calendarViewChanged: EventEmitter<IMyCalendarViewChanged> = new EventEmitter<IMyCalendarViewChanged>();
     @Output() calendarToggle: EventEmitter<number> = new EventEmitter<number>();
     @Output() inputFocusBlur: EventEmitter<IMyInputFocusBlur> = new EventEmitter<IMyInputFocusBlur>();
-    @ViewChild("selectorEl") selectorEl: any;
+    @ViewChild("selectorEl") selectorEl: ElementRef;
+    @ViewChild("inputBoxEl") inputBoxEl: ElementRef;
 
     onChangeCb: (_: any) => void = () => { };
     onTouchedCb: () => void = () => { };
@@ -588,6 +589,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         this.onChangeCb(null);
         this.onTouchedCb();
         this.updateDateValue(date, true);
+        this.setFocusToInputBox();
     }
 
     decreaseIncreaseDate(decrease: boolean): void {
@@ -615,6 +617,15 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
             this.calendarToggle.emit(closeReason);
         }
         this.showSelector = false;
+        this.setFocusToInputBox();
+    }
+
+    setFocusToInputBox(): void {
+        if (!this.opts.inline) {
+            setTimeout(() => {
+                this.inputBoxEl.nativeElement.focus();
+            });
+        }
     }
 
     updateDateValue(date: IMyDate, clear: boolean): void {
