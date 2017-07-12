@@ -76,8 +76,8 @@ export class SampleDatePickerAccessModifier implements OnInit {
     }
 
     clearDate(): void {
-        // Clear the date using the setValue function (use null or empty string)
-        this.myForm.setValue({myDate: null});
+        // Clear the date using the patchValue function (use null or empty string)
+        this.myForm.patchValue({myDate: null});
     }
 
     onInputFieldChanged(event: IMyInputFieldChanged) {

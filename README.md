@@ -136,8 +136,8 @@ export class MyTestApp implements OnInit {
     }
 
     clearDate(): void {
-        // Clear the date using the setValue function
-        this.myForm.setValue({myDate: null});
+        // Clear the date using the patchValue function
+        this.myForm.patchValue({myDate: null});
     }
 }
 ```
