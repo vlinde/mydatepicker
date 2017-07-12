@@ -125,9 +125,9 @@ export class MyTestApp implements OnInit {
     }
 
     setDate(): void {
-        // Set today date using the setValue function
+        // Set today date using the patchValue function
         let date = new Date();
-        this.myForm.setValue({myDate: {
+        this.myForm.patchValue({myDate: {
         date: {
             year: date.getFullYear(),
             month: date.getMonth() + 1,

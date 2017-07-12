@@ -19,7 +19,9 @@ let PREVYEAR: string = '.header tr td:last-child div .headerbtncell:first-child 
 let NEXTYEAR: string = '.header tr td:last-child div .headerbtncell:last-child .headerbtn';
 
 function getDateString(date:any):string {
-    return date.getFullYear() + '-' + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
+    return ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '/' +
+            (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '/' +
+            date.getFullYear();
 }
 
 function getElement(id:string):DebugElement {
@@ -1063,7 +1065,7 @@ describe('MyDatePicker', () => {
         selectableDays[0].nativeElement.click();
         fixture.detectChanges();
         selection = getElement('.selection');
-        expect(selection.nativeElement.value).toContain('2016-10-06');
+        expect(selection.nativeElement.value).toContain('10/06/2016');
     });
 
     it('options - disable since', () => {
@@ -1103,7 +1105,7 @@ describe('MyDatePicker', () => {
 
         fixture.detectChanges();
         selection = getElement('.selection');
-        expect(selection.nativeElement.value).toContain('2016-10-06');
+        expect(selection.nativeElement.value).toContain('10/06/2016');
     });
 
     it('options - disable days one by one', () => {
@@ -1382,7 +1384,7 @@ describe('MyDatePicker', () => {
 
         fixture.detectChanges();
         selection = getElement('.selection');
-        expect(selection.nativeElement.value).toContain('2016-10-03');
+        expect(selection.nativeElement.value).toContain('10/03/2016');
     });
 
     it('options - allow deselect date', () => {
@@ -2405,7 +2407,7 @@ describe('MyDatePicker', () => {
     });
 
     it('selDate - initially selected date - string', () => {
-        let date: string = '2017-10-11';
+        let date: string = '10/11/2017';
         comp.selectedDate = comp.parseSelectedDate(date);
 
         comp.parseOptions();
@@ -2413,7 +2415,7 @@ describe('MyDatePicker', () => {
         fixture.detectChanges();
         let selection = getElement('.selection');
         expect(selection).not.toBe(null);
-        expect(selection.nativeElement.value).toContain('2017-10-11');
+        expect(selection.nativeElement.value).toContain('10/11/2017');
 
 
         fixture.detectChanges();
@@ -2445,8 +2447,8 @@ describe('MyDatePicker', () => {
         fixture.detectChanges();
         let selection = getElement('.selection');
         expect(selection).not.toBe(null);
-        expect(selection.nativeElement.value).toContain('2017-10-11');
-        expect(comp.selectionDayTxt).toContain('2017-10-11');
+        expect(selection.nativeElement.value).toContain('10/11/2017');
+        expect(comp.selectionDayTxt).toContain('10/11/2017');
 
         fixture.detectChanges();
         let btnpicker = getElement('.btnpicker');
