@@ -323,7 +323,7 @@
 .mydp .disabled {
     cursor: default !important;
     color: #CCC !important;
-    background: #FBEFEF !important;
+    background: #FBEFEF;
 }
 
 .mydp .highlight {
