@@ -156,7 +156,7 @@ export class UtilService {
         }
 
         if (disableWeekDays.length > 0) {
-            for(let wd of disableWeekDays) {
+            for (let wd of disableWeekDays) {
                 if (dn === this.getWeekdayIndex(wd)) {
                     return true;
                 }
