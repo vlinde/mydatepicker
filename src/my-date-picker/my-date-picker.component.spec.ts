@@ -1924,6 +1924,42 @@ describe('MyDatePicker', () => {
         expect(invaliddate).toBe(null);
     });
 
+    it('options - disable weekdays', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 7, year: 2017};
+        comp.options = {
+            disableWeekdays: ['tu', 'th'],
+            firstDayOfWeek: 'mo'
+        };
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        let disabled = getElements('.disabled');
+        expect(disabled.length).toBe(12);
+
+        expect(disabled[0].nativeElement.textContent.trim()).toBe('27');
+        expect(disabled[disabled.length - 1].nativeElement.textContent.trim()).toBe('3');
+
+        btnpicker.nativeElement.click();
+
+
+        comp.options.disableWeekdays = [];
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        disabled = getElements('.disabled');
+        expect(disabled.length).toBe(0);
+    });
+
     it('options - disableDays input date validation', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 11, year: 2016};
         comp.options = {

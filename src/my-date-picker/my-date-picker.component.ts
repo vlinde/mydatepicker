@@ -67,7 +67,6 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     invalidDate: boolean = false;
     disableTodayBtn: boolean = false;
     dayIdx: number = 0;
-    weekDayOpts: Array<string> = ["su", "mo", "tu", "we", "th", "fr", "sa"];
 
     selectMonth: boolean = false;
     selectYear: boolean = false;
@@ -105,6 +104,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         markWeekends: <IMyMarkedDate> {},
         disableDateRanges: <Array<IMyDateRange>> [],
         disableWeekends: <boolean> false,
+        disableWeekdays: <Array<string>> [],
         showWeekNumbers: <boolean> false,
         height: <string> "34px",
         width: <string> "100%",
@@ -281,7 +281,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
             this.clearDate();
         }
         else {
-            let date: IMyDate = this.utilService.isDateValid(value, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRanges, this.opts.monthLabels, this.opts.enableDays);
+            let date: IMyDate = this.utilService.isDateValid(value, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableWeekdays, this.opts.disableDays, this.opts.disableDateRanges, this.opts.monthLabels, this.opts.enableDays);
             if (date.day !== 0 && date.month !== 0 && date.year !== 0) {
                 this.selectDate(date, CalToggle.CloseByDateSel);
             }
@@ -314,7 +314,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     isTodayDisabled(): void {
-        this.disableTodayBtn = this.utilService.isDisabledDay(this.getToday(), this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRanges, this.opts.enableDays);
+        this.disableTodayBtn = this.utilService.isDisabledDay(this.getToday(), this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableWeekdays, this.opts.disableDays, this.opts.disableDateRanges, this.opts.enableDays);
     }
 
     parseOptions(): void {
@@ -322,13 +322,14 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
             this.setLocaleOptions();
         }
         this.setOptions();
+        let weekDays: Array<string> = this.utilService.getWeekDays();
         this.isTodayDisabled();
-        this.dayIdx = this.weekDayOpts.indexOf(this.opts.firstDayOfWeek);
+        this.dayIdx = weekDays.indexOf(this.opts.firstDayOfWeek);
         if (this.dayIdx !== -1) {
             let idx: number = this.dayIdx;
-            for (let i = 0; i < this.weekDayOpts.length; i++) {
-                this.weekDays.push(this.opts.dayLabels[this.weekDayOpts[idx]]);
-                idx = this.weekDayOpts[idx] === "sa" ? 0 : idx + 1;
+            for (let i = 0; i < weekDays.length; i++) {
+                this.weekDays.push(this.opts.dayLabels[weekDays[idx]]);
+                idx = weekDays[idx] === "sa" ? 0 : idx + 1;
             }
         }
     }
@@ -695,7 +696,8 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 
     getWeekday(date: IMyDate): string {
         // Get weekday: su, mo, tu, we ...
-        return this.weekDayOpts[this.utilService.getDayNumber(date)];
+        let weekDays: Array<string> = this.utilService.getWeekDays();
+        return weekDays[this.utilService.getDayNumber(date)];
     }
 
     getDate(year: number, month: number, day: number): Date {
@@ -726,7 +728,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
                 for (let j = pm; j <= dInPrevM; j++) {
                     let date: IMyDate = {year: m === 1 ? y - 1 : y, month: m === 1 ? 12 : m - 1, day: j};
                     week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo, today),
-                        disabled: this.utilService.isDisabledDay(date, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRanges, this.opts.enableDays),
+                        disabled: this.utilService.isDisabledDay(date, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableWeekdays, this.opts.disableDays, this.opts.disableDateRanges, this.opts.enableDays),
                         markedDate: this.utilService.isMarkedDate(date, this.opts.markDates, this.opts.markWeekends),
                         highlight: this.utilService.isHighlightedDate(date, this.opts.sunHighlight, this.opts.satHighlight, this.opts.highlightDates)});
                 }
@@ -737,7 +739,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
                 for (let j = 0; j < daysLeft; j++) {
                     let date: IMyDate = {year: y, month: m, day: dayNbr};
                     week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo, today),
-                        disabled: this.utilService.isDisabledDay(date, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRanges, this.opts.enableDays),
+                        disabled: this.utilService.isDisabledDay(date, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableWeekdays, this.opts.disableDays, this.opts.disableDateRanges, this.opts.enableDays),
                         markedDate: this.utilService.isMarkedDate(date, this.opts.markDates, this.opts.markWeekends),
                         highlight: this.utilService.isHighlightedDate(date, this.opts.sunHighlight, this.opts.satHighlight, this.opts.highlightDates)});
                     dayNbr++;
@@ -753,7 +755,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
                     }
                     let date: IMyDate = {year: cmo === this.nextMonthId && m === 12 ? y + 1 : y, month: cmo === this.currMonthId ? m : cmo === this.nextMonthId && m < 12 ? m + 1 : 1, day: dayNbr};
                     week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo, today),
-                        disabled: this.utilService.isDisabledDay(date, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRanges, this.opts.enableDays),
+                        disabled: this.utilService.isDisabledDay(date, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableWeekdays, this.opts.disableDays, this.opts.disableDateRanges, this.opts.enableDays),
                         markedDate: this.utilService.isMarkedDate(date, this.opts.markDates, this.opts.markWeekends),
                         highlight: this.utilService.isHighlightedDate(date, this.opts.sunHighlight, this.opts.satHighlight, this.opts.highlightDates)});
                     dayNbr++;

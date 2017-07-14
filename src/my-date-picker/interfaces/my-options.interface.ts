@@ -26,6 +26,7 @@ export interface IMyOptions {
     markWeekends?: IMyMarkedDate;
     disableDateRanges?: Array<IMyDateRange>;
     disableWeekends?: boolean;
+    disableWeekdays?: Array<string>;
     showWeekNumbers?: boolean;
     height?: string;
     width?: string;

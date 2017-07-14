@@ -56,7 +56,8 @@ export class SampleDatePickerNormal implements OnInit {
             11: 'November',
             12: 'December'
         },
-        allowDeselectDate: true
+        allowDeselectDate: true,
+        disableWeekdays: []
     };
     private selectedDateNormal:string = '';
 
@@ -196,6 +197,12 @@ export class SampleDatePickerNormal implements OnInit {
         dates.push({year: 2017, month: 6, day: 1});
 
         copy.highlightDates = checked ? dates : [];
+        this.myDatePickerNormalOptions = copy;
+    }
+
+    onDisableTueAndThu(checked: boolean): void {
+        let copy = this.getCopyOfOptions();
+        copy.disableWeekdays = checked ? ['tu', 'th'] : [];
         this.myDatePickerNormalOptions = copy;
     }
 
