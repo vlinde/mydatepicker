@@ -278,7 +278,9 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     onUserDateInput(value: string): void {
         this.invalidDate = false;
         if (value.length === 0) {
-            this.clearDate();
+            if (this.selectionDayTxt.length > 0) {
+                this.clearDate();
+            }
         }
         else {
             let date: IMyDate = this.utilService.isDateValid(value, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableWeekdays, this.opts.disableDays, this.opts.disableDateRanges, this.opts.monthLabels, this.opts.enableDays);
@@ -625,7 +627,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         if (!this.opts.inline) {
             setTimeout(() => {
                 this.inputBoxEl.nativeElement.focus();
-            });
+            }, 10);
         }
     }
 
