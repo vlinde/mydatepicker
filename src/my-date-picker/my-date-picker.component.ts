@@ -276,10 +276,12 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     onUserDateInput(value: string): void {
-        this.invalidDate = false;
         if (value.length === 0) {
-            if (this.selectionDayTxt.length > 0) {
+            if (this.utilService.isInitializedDate(this.selectedDate)) {
                 this.clearDate();
+            }
+            else {
+                this.invalidInputFieldChanged(value);
             }
         }
         else {
@@ -288,13 +290,8 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
                 this.selectDate(date, CalToggle.CloseByDateSel);
             }
             else {
-                this.invalidDate = true;
+                this.invalidInputFieldChanged(value);
             }
-        }
-        if (this.invalidDate) {
-            this.inputFieldChanged.emit({value: value, dateFormat: this.opts.dateFormat, valid: !(value.length === 0 || this.invalidDate)});
-            this.onChangeCb(null);
-            this.onTouchedCb();
         }
     }
 
@@ -313,6 +310,13 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
             this.calendarToggle.emit(CalToggle.CloseByEsc);
             this.showSelector = false;
         }
+    }
+
+    invalidInputFieldChanged(value: string): void {
+        this.invalidDate = value.length > 0;
+        this.inputFieldChanged.emit({value: value, dateFormat: this.opts.dateFormat, valid: false});
+        this.onChangeCb(null);
+        this.onTouchedCb();
     }
 
     isTodayDisabled(): void {
