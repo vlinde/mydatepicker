@@ -2693,4 +2693,21 @@ describe('MyDatePicker', () => {
         expect(invaliddate).toBe(null);
     });
 
+
+    it('"selects" the date if the selected date is not the same as the input date on input changed and the input date is valid', () => {
+        spyOn(comp, 'selectDate');
+        comp.selectedDate = { day: 31, month: 8, year: 2017 };
+        comp.options = { dateFormat: 'dd-mm-yyyy' }
+        comp.setOptions();
+
+        comp.onUserDateInput('31-08-2017'); // Already selected input
+        expect(comp.selectDate).not.toHaveBeenCalled();
+
+        comp.onUserDateInput('0-10-2017'); // Invalid input
+        expect(comp.selectDate).not.toHaveBeenCalled();
+
+        comp.onUserDateInput('01-10-2017'); // Different date
+        expect(comp.selectDate).toHaveBeenCalled();
+    });
+
 });
