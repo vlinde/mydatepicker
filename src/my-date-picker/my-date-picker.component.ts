@@ -287,8 +287,11 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         else {
             let date: IMyDate = this.utilService.isDateValid(value, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableWeekdays, this.opts.disableDays, this.opts.disableDateRanges, this.opts.monthLabels, this.opts.enableDays);
             if (date.day !== 0 && date.month !== 0 && date.year !== 0) {
-                if (!this.selectedDate || this.selectedDate.day !== date.day || this.selectedDate.month !== date.month || this.selectedDate.year !== date.year) {
+                if (!this.utilService.isSameDate(date, this.selectedDate)) {
                     this.selectDate(date, CalToggle.CloseByDateSel);
+                }
+                else {
+                    this.updateDateValue(date, false);
                 }
             }
             else {
