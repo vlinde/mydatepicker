@@ -17,7 +17,7 @@ export const MYDP_VALUE_ACCESSOR: any = {
 };
 
 enum CalToggle {Open = 1, CloseByDateSel = 2, CloseByCalBtn = 3, CloseByOutClick = 4, CloseByEsc = 5, CloseByApi = 6}
-enum Year {min = 1100, max = 9100}
+enum Year {min = 1000, max = 9999}
 enum InputFocusBlur {focus = 1, blur = 2}
 enum KeyCode {enter = 13, esc = 27, space = 32}
 enum MonthId {prev = 1, curr = 2, next = 3}
