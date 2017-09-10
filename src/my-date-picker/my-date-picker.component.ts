@@ -636,7 +636,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         if (!this.opts.inline) {
             setTimeout(() => {
                 this.inputBoxEl.nativeElement.focus();
-            }, 10);
+            }, 100);
         }
     }
 
