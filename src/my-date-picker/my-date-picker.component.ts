@@ -633,7 +633,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     setFocusToInputBox(): void {
-        if (!this.opts.inline) {
+        if (!this.opts.inline && this.opts.showInputField) {
             setTimeout(() => {
                 this.inputBoxEl.nativeElement.focus();
             }, 100);
