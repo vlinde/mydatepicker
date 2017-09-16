@@ -76,7 +76,7 @@ export class MyTestApp {
     };
 
     // Initialized to specific date (09.10.2018).
-    public model: Object = { date: { year: 2018, month: 10, day: 9 } };
+    public model: any = { date: { year: 2018, month: 10, day: 9 } };
 
     constructor() { }
 }
@@ -165,7 +165,7 @@ import {IMyDpOptions, IMyDateModel} from 'mydatepicker';
 
 export class MyTestApp {
 
-    private myDatePickerOptions: IMyDpOptions = {
+    myDatePickerOptions: IMyDpOptions = {
         // other options...
         dateFormat: 'dd.mm.yyyy',
     };
