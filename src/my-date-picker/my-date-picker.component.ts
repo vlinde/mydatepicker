@@ -137,7 +137,8 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         ariaLabelPrevMonth: <string> "Previous Month",
         ariaLabelNextMonth: <string> "Next Month",
         ariaLabelPrevYear: <string> "Previous Year",
-        ariaLabelNextYear: <string> "Next Year"
+        ariaLabelNextYear: <string> "Next Year",
+        allowSelectionOnlyInCurrentMonth: <boolean> false
     };
 
     constructor(public elem: ElementRef, private renderer: Renderer, private cdr: ChangeDetectorRef, private localeService: LocaleService, private utilService: UtilService) {
@@ -569,6 +570,9 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         if (cell.cmo === this.prevMonthId) {
             // Previous month day
             this.onPrevMonth();
+            if (!this.opts.allowSelectionOnlyInCurrentMonth) {
+                this.selectDate(cell.dateObj, CalToggle.CloseByDateSel);
+            }
         }
         else if (cell.cmo === this.currMonthId) {
             // Current month day - if date is already selected clear it
@@ -582,6 +586,9 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         else if (cell.cmo === this.nextMonthId) {
             // Next month day
             this.onNextMonth();
+            if (!this.opts.allowSelectionOnlyInCurrentMonth) {
+                this.selectDate(cell.dateObj, CalToggle.CloseByDateSel);
+            }
         }
         this.resetMonthYearSelect();
     }
