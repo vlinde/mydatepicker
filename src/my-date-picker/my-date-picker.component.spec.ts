@@ -2335,6 +2335,25 @@ describe('MyDatePicker', () => {
         expect(nextyear.nativeElement.attributes['aria-label'].textContent).toBe(comp.options.ariaLabelNextYear);
     });
 
+    it('options - allowSelectionOnlyInCurrentMonth', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2017};
+        comp.options = {allowSelectionOnlyInCurrentMonth: true};
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        let selection = getElement('.selection');
+        let daycell = getElements('.daycell');
+        daycell[37].nativeElement.click();
+
+        fixture.detectChanges();
+        expect(selection.nativeElement.value).toBe('');
+    });
+
     it('locale - use fr locale', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 1, year: 2016};
         comp.locale = 'fr';
@@ -2709,5 +2728,4 @@ describe('MyDatePicker', () => {
         comp.onUserDateInput('01-10-2017'); // Different date
         expect(comp.selectDate).toHaveBeenCalled();
     });
-
 });
