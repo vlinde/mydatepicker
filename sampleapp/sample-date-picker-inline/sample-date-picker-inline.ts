@@ -17,7 +17,8 @@ export class SampleDatePickerInline implements OnInit {
         disableDays: [{year: 0, month: 0, day: 0}],
         showWeekNumbers: true,
         selectorHeight: '232px',
-        selectorWidth: '252px'
+        selectorWidth: '252px',
+        allowSelectionOnlyInCurrentMonth: false
     };
     private selectedDateInline: Object = {};
 

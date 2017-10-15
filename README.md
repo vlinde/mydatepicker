@@ -240,6 +240,7 @@ Value of the __options__ attribute is a type of [IMyDpOptions](https://github.co
 | __showSelectorArrow__   | true | boolean | Is selector (calendar) arrow shown or not. Can be used if __inline = false__. |
 | __showInputField__   | true | boolean | Is selection area input field shown or not. If not, just show the icon. Can be used if __inline = false__. |
 | __openSelectorOnInputClick__   | false | boolean | Open selector when the input field is clicked. Can be used if __inline = false and editableDateField = false__. |
+| __allowSelectionOnlyInCurrentMonth__ | true | boolean | Is a date selection allowed or not other than current month. |
 | __ariaLabelInputField__   | Date input field | string | Aria label text of input field. |
 | __ariaLabelClearDate__   | Clear Date | string | Aria label text of clear date button. |
 | __ariaLabelDecreaseDate__   | Decrease Date | string | Aria label text of decrease date button. |
@@ -249,7 +250,6 @@ Value of the __options__ attribute is a type of [IMyDpOptions](https://github.co
 | __ariaLabelNextMonth__   | Next Month | string | Aria label text of next month button. |
 | __ariaLabelPrevYear__   | Previous Year | string | Aria label text of previous year button. |
 | __ariaLabelNextYear__   | Next Year | string | Aria label text of next year button. |
-| __allowSelectionOnlyInCurrentMonth__ | false | boolean | When set to true does not select date out of current month range |
 
 * Example of the options data (not all properties listed):
 ```ts

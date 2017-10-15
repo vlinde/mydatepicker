@@ -57,7 +57,8 @@ export class SampleDatePickerNormal implements OnInit {
             12: 'December'
         },
         allowDeselectDate: true,
-        disableWeekdays: []
+        disableWeekdays: [],
+        allowSelectionOnlyInCurrentMonth: true
     };
     private selectedDateNormal:string = '';
 
@@ -209,6 +210,12 @@ export class SampleDatePickerNormal implements OnInit {
     onAllowDeselectDate(checked: boolean): void {
         let copy = this.getCopyOfOptions();
         copy.allowDeselectDate = checked;
+        this.myDatePickerNormalOptions = copy;
+    }
+
+    onAllowSelectionOnlyCurrentMonth(checked: boolean): void {
+        let copy = this.getCopyOfOptions();
+        copy.allowSelectionOnlyInCurrentMonth = checked;
         this.myDatePickerNormalOptions = copy;
     }
 

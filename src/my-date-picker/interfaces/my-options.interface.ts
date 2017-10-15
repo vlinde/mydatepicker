@@ -51,6 +51,7 @@ export interface IMyOptions {
     showSelectorArrow?: boolean;
     showInputField?: boolean;
     openSelectorOnInputClick?: boolean;
+    allowSelectionOnlyInCurrentMonth?: boolean;
     ariaLabelInputField?: string;
     ariaLabelClearDate?: string;
     ariaLabelDecreaseDate?: string;
@@ -60,7 +61,6 @@ export interface IMyOptions {
     ariaLabelNextMonth?: string;
     ariaLabelPrevYear?: string;
     ariaLabelNextYear?: string;
-    allowSelectionOnlyInCurrentMonth?: boolean;
 }
 
 export interface IMyDpOptions extends IMyOptions {}
