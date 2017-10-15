@@ -28,7 +28,8 @@ export class SampleDatePickerNormal implements OnInit {
         highlightDates: [],
         markDates: [],
         selectorHeight: '232px',
-        selectorWidth: '252px'
+        selectorWidth: '252px',
+        allowSelectionOnlyInCurrentMonth: true
     };
     selectedDateNormal:string = '';
 
@@ -125,6 +126,12 @@ export class SampleDatePickerNormal implements OnInit {
         let d: Date = new Date();
         let copy = this.getCopyOfOptions();
         copy.highlightDates = checked ? [{year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate()}] : [];
+        this.myDatePickerNormalOptions = copy;
+    }
+
+    onAllowSelectionOnlyCurrentMonth(checked: boolean): void {
+        let copy = this.getCopyOfOptions();
+        copy.allowSelectionOnlyInCurrentMonth = checked;
         this.myDatePickerNormalOptions = copy;
     }
 
