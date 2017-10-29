@@ -626,11 +626,6 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     selectDate(date: IMyDate, closeReason: number): void {
-        // Date selected, notifies parent using callbacks and value accessor
-        let dateModel: IMyDateModel = this.getDateModel(date);
-        this.dateChanged.emit(dateModel);
-        this.onChangeCb(dateModel);
-        this.onTouchedCb();
         this.updateDateValue(date, false);
         if (this.showSelector) {
             this.calendarToggle.emit(closeReason);
@@ -651,7 +646,13 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         // Updates date values
         this.selectedDate = date;
         this.selectionDayTxt = clear ? "" : this.formatDate(date);
+
+        let dateModel: IMyDateModel = this.getDateModel(date);
+        this.dateChanged.emit(dateModel);
+        this.onChangeCb(dateModel);
+        this.onTouchedCb();
         this.inputFieldChanged.emit({value: this.selectionDayTxt, dateFormat: this.opts.dateFormat, valid: !clear});
+
         this.invalidDate = false;
     }
 
