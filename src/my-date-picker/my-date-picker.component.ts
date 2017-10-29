@@ -643,14 +643,16 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     updateDateValue(date: IMyDate, clear: boolean): void {
-        // Updates date values
         this.selectedDate = date;
         this.selectionDayTxt = clear ? "" : this.formatDate(date);
 
-        let dateModel: IMyDateModel = this.getDateModel(date);
-        this.dateChanged.emit(dateModel);
-        this.onChangeCb(dateModel);
-        this.onTouchedCb();
+        if (!clear) {
+            let dateModel: IMyDateModel = this.getDateModel(date);
+            this.dateChanged.emit(dateModel);
+            this.onChangeCb(dateModel);
+            this.onTouchedCb();
+        }
+
         this.inputFieldChanged.emit({value: this.selectionDayTxt, dateFormat: this.opts.dateFormat, valid: !clear});
 
         this.invalidDate = false;
