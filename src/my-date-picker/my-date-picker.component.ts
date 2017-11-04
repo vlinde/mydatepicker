@@ -287,12 +287,12 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         }
         else {
             let date: IMyDate = this.utilService.isDateValid(value, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableWeekdays, this.opts.disableDays, this.opts.disableDateRanges, this.opts.monthLabels, this.opts.enableDays);
-            if (date.day !== 0 && date.month !== 0 && date.year !== 0) {
+            if (this.utilService.isInitializedDate(date)) {
                 if (!this.utilService.isSameDate(date, this.selectedDate)) {
                     this.selectDate(date, CalToggle.CloseByDateSel);
                 }
                 else {
-                    this.updateDateValue(date, false);
+                    this.updateDateValue(date);
                 }
             }
             else {
@@ -355,15 +355,19 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
                 this.generateCalendar(this.selectedDate.month, this.selectedDate.year, cvc);
             }
             if (!this.opts.inline) {
-                this.updateDateValue(this.selectedDate, false);
+                this.updateDateValue(this.selectedDate);
+            }
+            else {
+                this.emitDateChanged(this.selectedDate);
             }
         }
         else if (value === null || value === "") {
             if (!this.opts.inline) {
-                this.updateDateValue({year: 0, month: 0, day: 0}, true);
+                this.updateDateValue({year: 0, month: 0, day: 0});
             }
             else {
                 this.selectedDate = {year: 0, month: 0, day: 0};
+                this.emitDateChanged(this.selectedDate);
             }
         }
     }
@@ -602,12 +606,8 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     clearDate(): void {
-        // Clears the date and notifies parent using callbacks and value accessor
-        let date: IMyDate = {year: 0, month: 0, day: 0};
-        this.dateChanged.emit({date: date, jsdate: null, formatted: "", epoc: 0});
-        this.onChangeCb(null);
-        this.onTouchedCb();
-        this.updateDateValue(date, true);
+        // Clears the date
+        this.updateDateValue({year: 0, month: 0, day: 0});
         this.setFocusToInputBox();
     }
 
@@ -626,7 +626,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     selectDate(date: IMyDate, closeReason: number): void {
-        this.updateDateValue(date, false);
+        this.updateDateValue(date);
         if (this.showSelector) {
             this.calendarToggle.emit(closeReason);
         }
@@ -642,20 +642,30 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         }
     }
 
-    updateDateValue(date: IMyDate, clear: boolean): void {
-        this.selectedDate = date;
-        this.selectionDayTxt = clear ? "" : this.formatDate(date);
+    updateDateValue(date: IMyDate): void {
+        let clear: boolean = !this.utilService.isInitializedDate(date);
 
-        if (!clear) {
+        this.selectedDate = date;
+        this.emitDateChanged(date);
+
+        if (!this.opts.inline) {
+            this.selectionDayTxt = clear ? "" : this.formatDate(date);
+            this.inputFieldChanged.emit({value: this.selectionDayTxt, dateFormat: this.opts.dateFormat, valid: !clear});
+            this.invalidDate = false;
+        }
+    }
+
+    emitDateChanged(date: IMyDate): void {
+        if (this.utilService.isInitializedDate(date)) {
             let dateModel: IMyDateModel = this.getDateModel(date);
             this.dateChanged.emit(dateModel);
             this.onChangeCb(dateModel);
-            this.onTouchedCb();
         }
-
-        this.inputFieldChanged.emit({value: this.selectionDayTxt, dateFormat: this.opts.dateFormat, valid: !clear});
-
-        this.invalidDate = false;
+        else {
+            this.dateChanged.emit({date: date, jsdate: null, formatted: "", epoc: 0});
+            this.onChangeCb(null);
+        }
+        this.onTouchedCb();
     }
 
     getDateModel(date: IMyDate): IMyDateModel {
