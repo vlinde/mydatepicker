@@ -13,7 +13,7 @@ const amSampleTpl: string = require('./sample-date-picker-access-modifier.html')
 export class SampleDatePickerAccessModifier implements OnInit {
 
     private myDatePickerOptions: IMyOptions = {
-        dateFormat: 'dd.mm.yyyy',
+        dateFormat: 'd.m.yyyy',
         height: '34px',
         width: '210px',
         inline: false

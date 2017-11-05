@@ -22,10 +22,7 @@ enum InputFocusBlur {focus = 1, blur = 2}
 enum KeyCode {enter = 13, esc = 27, space = 32}
 enum MonthId {prev = 1, curr = 2, next = 3}
 
-const MM = "mm";
 const MMM = "mmm";
-const DD = "dd";
-const YYYY = "yyyy";
 
 @Component({
     selector: "my-date-picker",
@@ -649,7 +646,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         this.emitDateChanged(date);
 
         if (!this.opts.inline) {
-            this.selectionDayTxt = clear ? "" : this.formatDate(date);
+            this.selectionDayTxt = clear ? "" : this.utilService.formatDate(date, this.opts.dateFormat, this.opts.monthLabels);
             this.inputFieldChanged.emit({value: this.selectionDayTxt, dateFormat: this.opts.dateFormat, valid: !clear});
             this.invalidDate = false;
         }
@@ -670,18 +667,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 
     getDateModel(date: IMyDate): IMyDateModel {
         // Creates a date model object from the given parameter
-        return {date: date, jsdate: this.getDate(date.year, date.month, date.day), formatted: this.formatDate(date), epoc: Math.round(this.getTimeInMilliseconds(date) / 1000.0)};
-    }
-
-    preZero(val: string): string {
-        // Prepend zero if smaller than 10
-        return parseInt(val) < 10 ? "0" + val : val;
-    }
-
-    formatDate(val: any): string {
-        // Returns formatted date string, if mmm is part of dateFormat returns month as a string
-        let formatted: string = this.opts.dateFormat.replace(YYYY, val.year).replace(DD, this.preZero(val.day));
-        return this.opts.dateFormat.indexOf(MMM) !== -1 ? formatted.replace(MMM, this.monthText(val.month)) : formatted.replace(MM, this.preZero(val.month));
+        return {date: date, jsdate: this.getDate(date.year, date.month, date.day), formatted: this.utilService.formatDate(date, this.opts.dateFormat, this.opts.monthLabels), epoc: Math.round(this.getTimeInMilliseconds(date) / 1000.0)};
     }
 
     monthText(m: number): string {
@@ -811,21 +797,16 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
             let sd: string = <string> selDate;
             let df: string = this.opts.dateFormat;
 
-            date.month = df.indexOf(MMM) !== -1
-                ? this.utilService.parseDatePartMonthName(df, sd, MMM, this.opts.monthLabels)
-                : this.utilService.parseDatePartNumber(df, sd, MM);
-
-            if (df.indexOf(MMM) !== -1 && this.opts.monthLabels[date.month]) {
-                df = this.utilService.changeDateFormat(df, this.opts.monthLabels[date.month].length);
-            }
-
-            date.day = this.utilService.parseDatePartNumber(df, sd, DD);
-            date.year = this.utilService.parseDatePartNumber(df, sd, YYYY);
+            let delimeters: Array<string> = this.utilService.getDateFormatDelimeters(df);
+            let dateValue: Array<string> = this.utilService.getDateValue(sd, df, delimeters);
+            date.year = this.utilService.getNumberByValue(dateValue[0]);
+            date.month = df.indexOf(MMM) !== -1 ? this.utilService.getMonthNumberByMonthName(dateValue[1], this.opts.monthLabels) : this.utilService.getNumberByValue(dateValue[1]);
+            date.day  = this.utilService.getNumberByValue(dateValue[2]);
         }
         else if (typeof selDate === "object") {
             date = selDate;
         }
-        this.selectionDayTxt = this.formatDate(date);
+        this.selectionDayTxt = this.utilService.formatDate(date, this.opts.dateFormat, this.opts.monthLabels);
         return date;
     }
 
