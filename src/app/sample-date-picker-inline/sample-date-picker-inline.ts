@@ -12,7 +12,8 @@ export class SampleDatePickerInline implements OnInit {
     myDatePickerInlineOptions: IMyDpOptions = {
         inline: true,
         disableUntil: {year: 0, month: 0, day: 0},
-        disableHeaderButtons: true
+        disableHeaderButtons: true,
+        dateFormat: 'd.m.yyyy'
     };
     selectedDateInline: string = '';
 
