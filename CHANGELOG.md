@@ -1,4 +1,15 @@
-# [2.3.0](https://github.com/kekeh/mydatepicker/commit/fdf4eb4c43b559ec3b7dea6ba2a413ca71bbd59d) (2017-11-05)
+# 2.4.0 (2017-11-07)
+
+### Bug Fixes
+
+* Fixing short date format functionality.
+
+### Features
+
+* none.
+
+
+# 2.3.0 (2017-11-05)
 
 ### Bug Fixes
 
@@ -6,10 +17,10 @@
 
 ### Features
 
-* Added support to short date formats fro example __d.m.yyyy__.
+* Added support to short date formats for example __d.m.yyyy__.
 
 
-# [2.2.0](https://github.com/kekeh/mydatepicker/commit/590f69fb697b21b89e040ecdd62f0aaa4d7d27ed) (2017-11-04)
+# 2.2.0 (2017-11-04)
 
 ### Bug Fixes
 

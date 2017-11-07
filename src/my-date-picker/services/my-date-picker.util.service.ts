@@ -5,6 +5,7 @@ import { IMyMonth } from "../interfaces/my-month.interface";
 import { IMyMonthLabels } from "../interfaces/my-month-labels.interface";
 import { IMyMarkedDates } from "../interfaces/my-marked-dates.interface";
 import { IMyMarkedDate } from "../interfaces/my-marked-date.interface";
+import { IMyDateFormat } from "../interfaces/my-date-format.interface";
 
 const M = "m";
 const MM = "mm";
@@ -23,7 +24,7 @@ export class UtilService {
         let isMonthStr: boolean = dateFormat.indexOf(MMM) !== -1;
         let delimeters: Array<string> = this.getDateFormatDelimeters(dateFormat);
 
-        let dateValue: Array<string> = this.getDateValue(dateStr, dateFormat, delimeters);
+        let dateValue: Array<IMyDateFormat> = this.getDateValue(dateStr, dateFormat, delimeters);
         let year: number = this.getNumberByValue(dateValue[0]);
         let month: number = isMonthStr ? this.getMonthNumberByMonthName(dateValue[1], monthLabels) : this.getNumberByValue(dateValue[1]);
         let day: number = this.getNumberByValue(dateValue[2]);
@@ -53,7 +54,7 @@ export class UtilService {
         return returnDate;
     }
 
-    getDateValue(dateStr: string, dateFormat: string, delimeters: Array<string>): Array<string> {
+    getDateValue(dateStr: string, dateFormat: string, delimeters: Array<string>): Array<IMyDateFormat> {
         let del: string = delimeters[0];
         if (delimeters[0] !== delimeters[1]) {
             del = delimeters[0] + delimeters[1];
@@ -62,26 +63,26 @@ export class UtilService {
         let re: any = new RegExp("[" + del + "]");
         let ds: Array<string> = dateStr.split(re);
         let df: Array<string> = dateFormat.split(re);
-        let dateArr: Array<string> = [];
+        let da: Array<IMyDateFormat> = [];
 
         for (let i = 0; i < df.length; i++) {
             if (df[i].indexOf(YYYY) !== -1) {
-                dateArr[0] = ds[i];
+                da[0] = {value: ds[i], format: df[i]};
             }
             if (df[i].indexOf(M) !== -1) {
-                dateArr[1] = ds[i];
+                da[1] = {value: ds[i], format: df[i]};
             }
             if (df[i].indexOf(D) !== -1) {
-                dateArr[2] = ds[i];
+                da[2] = {value: ds[i], format: df[i]};
             }
         }
-        return dateArr;
+        return da;
     }
 
-    getMonthNumberByMonthName(monthLabel: string, monthLabels: IMyMonthLabels): number {
-        if (monthLabel) {
+    getMonthNumberByMonthName(df: IMyDateFormat, monthLabels: IMyMonthLabels): number {
+        if (df.value) {
             for (let key = 1; key <= 12; key++) {
-                if (monthLabel.toLowerCase() === monthLabels[key].toLowerCase()) {
+                if (df.value.toLowerCase() === monthLabels[key].toLowerCase()) {
                     return key;
                 }
             }
@@ -89,11 +90,19 @@ export class UtilService {
         return -1;
     }
 
-    getNumberByValue(value: string): number {
-        if (!/^\d+$/.test(value)) {
+    getNumberByValue(df: IMyDateFormat): number {
+        if (!/^\d+$/.test(df.value)) {
             return -1;
         }
-        return Number(value);
+
+        let nbr: number = Number(df.value);
+        if (df.format.length === 1 && df.value.length !== 1 && nbr < 10 || df.format.length === 1 && df.value.length !== 2 && nbr >= 10) {
+            nbr = -1;
+        }
+        else if (df.format.length === 2 && df.value.length > 2) {
+            nbr = -1;
+        }
+        return nbr;
     }
 
     getDateFormatDelimeters(dateFormat: string): Array<string> {
