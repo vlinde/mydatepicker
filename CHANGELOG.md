@@ -1,3 +1,15 @@
+
+# 2.5.1 (2017-11-17)
+
+### Bug Fixes
+
+* Fixed bug #467
+
+### Features
+
+* none.
+
+
 # 2.5.0 (2017-11-12)
 
 ### Bug Fixes

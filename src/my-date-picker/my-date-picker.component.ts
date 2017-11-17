@@ -227,7 +227,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         this.selectMonth = false;
         this.cdr.detectChanges();
         if (this.selectYear) {
-            this.generateYears(this.visibleMonth.year);
+            this.generateYears(Number(this.visibleMonth.year));
         }
     }
 
@@ -248,12 +248,12 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 
     onPrevYears(event: any, year: number): void {
         event.stopPropagation();
-        this.generateYears(year - 25);
+        this.generateYears(Number(year) - 25);
     }
 
     onNextYears(event: any, year: number): void {
         event.stopPropagation();
-        this.generateYears(year + 25);
+        this.generateYears(Number(year) + 25);
     }
 
     generateYears(year: number): void {
