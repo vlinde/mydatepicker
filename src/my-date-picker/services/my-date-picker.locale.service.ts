@@ -35,6 +35,14 @@ export class LocaleService {
             firstDayOfWeek: "mo",
             sunHighlight: true,
         },
+        "fr-ch": {
+            dayLabels: {su: "Dim", mo: "Lun", tu: "Mar", we: "Mer", th: "Jeu", fr: "Ven", sa: "Sam"},
+            monthLabels: {1: "Jan", 2: "Fév", 3: "Mar", 4: "Avr", 5: "Mai", 6: "Juin", 7: "Juil", 8: "Aoû", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Déc"},
+            dateFormat: "dd.mm.yyyy",
+            todayBtnTxt: "Aujourd'hui",
+            firstDayOfWeek: "mo",
+            sunHighlight: true,
+        },
         "fi": {
             dayLabels: {su: "Su", mo: "Ma", tu: "Ti", we: "Ke", th: "To", fr: "Pe", sa: "La"},
             monthLabels: {1: "Tam", 2: "Hel", 3: "Maa", 4: "Huh", 5: "Tou", 6: "Kes", 7: "Hei", 8: "Elo", 9: "Syy", 10: "Lok", 11: "Mar", 12: "Jou"},
@@ -116,6 +124,14 @@ export class LocaleService {
             sunHighlight: true
         },
         "de": {
+            dayLabels: {su: "So", mo: "Mo", tu: "Di", we: "Mi", th: "Do", fr: "Fr", sa: "Sa"},
+            monthLabels: { 1: "Jan", 2: "Feb", 3: "Mär", 4: "Apr", 5: "Mai", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Okt", 11: "Nov", 12: "Dez" },
+            dateFormat: "dd.mm.yyyy",
+            todayBtnTxt: "Heute",
+            firstDayOfWeek: "mo",
+            sunHighlight: true
+        },
+        "de-ch": {
             dayLabels: {su: "So", mo: "Mo", tu: "Di", we: "Mi", th: "Do", fr: "Fr", sa: "Sa"},
             monthLabels: { 1: "Jan", 2: "Feb", 3: "Mär", 4: "Apr", 5: "Mai", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Okt", 11: "Nov", 12: "Dez" },
             dateFormat: "dd.mm.yyyy",
