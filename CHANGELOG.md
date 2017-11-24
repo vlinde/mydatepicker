@@ -1,3 +1,13 @@
+# 2.5.2 (2017-11-24)
+
+### Bug Fixes
+
+* none
+
+### Features
+
+* Added __de-ch__ and __fr-ch__ locales.
+
 
 # 2.5.1 (2017-11-17)
 
