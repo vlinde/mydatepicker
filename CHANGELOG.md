@@ -1,3 +1,14 @@
+# 2.5.3 (2017-11-28)
+
+### Bug Fixes
+
+* Fixed bug #469. Merged #475.
+
+### Features
+
+* none
+
+
 # 2.5.2 (2017-11-24)
 
 ### Bug Fixes
