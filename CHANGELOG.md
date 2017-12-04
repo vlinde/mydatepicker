@@ -1,3 +1,14 @@
+# 2.6.0 (2017-12-04)
+
+### Bug Fixes
+
+* dateChanged callback is not now called on initialize when init with a date.
+
+### Features
+
+* none
+
+
 # 2.5.3 (2017-11-28)
 
 ### Bug Fixes

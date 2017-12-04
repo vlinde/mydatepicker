@@ -352,22 +352,14 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor, OnDestroy 
                 this.visibleMonth = {monthTxt: this.opts.monthLabels[this.selectedDate.month], monthNbr: this.selectedDate.month, year: this.selectedDate.year};
                 this.generateCalendar(this.selectedDate.month, this.selectedDate.year, cvc);
             }
-            if (!this.opts.inline) {
-                this.updateDateValue(this.selectedDate , false);
-            }
-            else {
-                this.emitDateChanged(this.selectedDate, false);
-            }
+            this.selectionDayTxt = this.utilService.formatDate(this.selectedDate, this.opts.dateFormat, this.opts.monthLabels);
         }
         else if (value === null || value === "") {
-            if (!this.opts.inline) {
-                this.updateDateValue({year: 0, month: 0, day: 0}, false);
-            }
-            else {
-                this.selectedDate = {year: 0, month: 0, day: 0};
-                this.emitDateChanged(this.selectedDate, false);
-            }
+            this.selectedDate = {year: 0, month: 0, day: 0};
+            this.selectionDayTxt = "";
         }
+        this.inputFieldChanged.emit({value: this.selectionDayTxt, dateFormat: this.opts.dateFormat, valid: this.selectionDayTxt.length > 0});
+        this.invalidDate = false;
     }
 
     setDisabledState(disabled: boolean): void {
@@ -640,11 +632,11 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor, OnDestroy 
         }
     }
 
-    updateDateValue(date: IMyDate, updateModel: boolean = true): void {
+    updateDateValue(date: IMyDate): void {
         let clear: boolean = !this.utilService.isInitializedDate(date);
 
         this.selectedDate = date;
-        this.emitDateChanged(date, updateModel);
+        this.emitDateChanged(date);
 
         if (!this.opts.inline) {
             this.selectionDayTxt = clear ? "" : this.utilService.formatDate(date, this.opts.dateFormat, this.opts.monthLabels);
@@ -653,21 +645,17 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor, OnDestroy 
         }
     }
 
-    emitDateChanged(date: IMyDate, updateModel: boolean = true): void {
+    emitDateChanged(date: IMyDate): void {
         if (this.utilService.isInitializedDate(date)) {
             let dateModel: IMyDateModel = this.getDateModel(date);
             this.dateChanged.emit(dateModel);
-            if (updateModel) {
-                this.onChangeCb(dateModel);
-                this.onTouchedCb();
-            }
+            this.onChangeCb(dateModel);
+            this.onTouchedCb();
         }
         else {
             this.dateChanged.emit({date: date, jsdate: null, formatted: "", epoc: 0});
-            if (updateModel) {
-                this.onChangeCb(null);
-                this.onTouchedCb();
-            }
+            this.onChangeCb(null);
+            this.onTouchedCb();
         }
     }
 
