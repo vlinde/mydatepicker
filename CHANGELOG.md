@@ -1,3 +1,14 @@
+# 2.6.1 (2017-12-06)
+
+### Bug Fixes
+
+* npm readme and repository readme files updated.
+
+### Features
+
+* none
+
+
 # 2.6.0 (2017-12-04)
 
 ### Bug Fixes

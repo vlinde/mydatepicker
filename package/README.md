@@ -7,7 +7,7 @@
 [![npm](https://img.shields.io/npm/v/mydatepicker.svg?maxAge=2592000?style=flat-square)](https://www.npmjs.com/package/mydatepicker)
 
 ## Description
-Highly configurable Angular date picker. Compatible with __Angular2__ and __Angular4__ versions.
+Highly configurable Angular date picker. Compatible __Angular2__ onwards.
 
 ## Installation
 
@@ -36,5 +36,5 @@ Online demo is [here](http://kekeh.github.io/mydatepicker)
 
 ## Keywords
 * Date picker
-* Angular2
-* Angular4
+* Angular
+* typescript
