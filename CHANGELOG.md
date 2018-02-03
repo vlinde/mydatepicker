@@ -1,3 +1,14 @@
+# 2.6.2 (2018-02-03)
+
+### Bug Fixes
+
+* none
+
+### Features
+
+* Updating README.md file.
+
+
 # 2.6.1 (2017-12-06)
 
 ### Bug Fixes
