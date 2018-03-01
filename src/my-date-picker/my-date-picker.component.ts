@@ -141,15 +141,6 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor, OnDestroy 
 
     constructor(public elem: ElementRef, private renderer: Renderer, private cdr: ChangeDetectorRef, private localeService: LocaleService, private utilService: UtilService) {
         this.setLocaleOptions();
-        this.globalListener = renderer.listenGlobal("document", "click", (event: any) => {
-            if (this.showSelector && event.target && this.elem.nativeElement !== event.target && !this.elem.nativeElement.contains(event.target)) {
-                this.showSelector = false;
-                this.calendarToggle.emit(CalToggle.CloseByOutClick);
-            }
-            if (this.opts.monthSelector || this.opts.yearSelector) {
-                this.resetMonthYearSelect();
-            }
-        });
     }
 
     setLocaleOptions(): void {
@@ -482,11 +473,23 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor, OnDestroy 
     }
 
     openSelector(reason: number): void {
+        this.globalListener = this.globalListener || this.renderer.listenGlobal("document", "click", (event: any) => {
+            if (this.showSelector && event.target && this.elem.nativeElement !== event.target && !this.elem.nativeElement.contains(event.target)) {
+                this.showSelector = false;
+                this.calendarToggle.emit(CalToggle.CloseByOutClick);
+            }
+            if (this.opts.monthSelector || this.opts.yearSelector) {
+                this.resetMonthYearSelect();
+            }
+        });
         this.setVisibleMonth();
         this.calendarToggle.emit(reason);
     }
 
     closeSelector(reason: number): void {
+        if (this.globalListener) {
+            this.globalListener();
+        }
         this.calendarToggle.emit(reason);
     }
 
@@ -831,6 +834,8 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor, OnDestroy 
 
     // Remove listeners or nullify globals on component destroy 
     ngOnDestroy() {
-        this.globalListener();
+        if (this.globalListener) {
+            this.globalListener();
+        }
     }
 }
