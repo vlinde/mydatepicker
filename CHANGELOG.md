@@ -1,3 +1,14 @@
+# 2.6.3 (2018-03-01)
+
+### Bug Fixes
+
+* Merged #508.
+
+### Features
+
+* none
+
+
 # 2.6.2 (2018-02-03)
 
 ### Bug Fixes
