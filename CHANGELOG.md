@@ -1,3 +1,14 @@
+# 2.6.4 (2018-07-13)
+
+### Bug Fixes
+
+* none
+
+### Features
+
+* Added tw locale
+
+
 # 2.6.3 (2018-03-01)
 
 ### Bug Fixes

@@ -269,24 +269,13 @@ Value of the __options__ attribute is a type of [IMyDpOptions](https://github.co
 An ISO 639-1 language code can be provided as shorthand for the following options (dayLabels, monthLabels, dateFormat, todayBtnTxt, firstDayOfWeek and sunHighlight).
 Currently supported languages: __en__, __fr__, __fr-ch__, __ja__, __fi__, __es__, __hu__, __sv__, __nl__, __ru__, __uk__, __no__, __tr__,
 __pt-br__, __de__, __de-ch__, __it__, __it-ch__, __pl__, __my__, __sk__, __sl__, __zh-cn__, __he__, __ro__, __ca__, __id__, __en-au__, __am-et__, __cs__, __el__, __kk__,
-__th__, __ko-kr__, __da__, __lt__, __vi__, __bn__, __bg__, __hr__, __ar__ and __is__.
+__th__, __ko-kr__, __da__, __lt__, __vi__, __bn__, __bg__, __hr__, __ar__,  __is__ and __tw__.
 
 The __locale__ options can be override by __options__ attribute.
 
 * new locale data can be added to [this](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/services/my-date-picker.locale.service.ts)
 file. If you want to add a new locale create a pull request.
 * locales can be tested [here](http://kekeh.github.io/mydatepicker/#inlinemode)
-
-### selDate attribute
-
-Provide the initially chosen date that will display both in the text input field
-and provide the default for the popped-up selector.
-
-Type of the __selDate__ attribute can be a string or an [IMyDate](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-date.interface.ts) object.
-  * the string must be in the same format as the __dateFormat__ option is. For example '2016-06-26'
-  * the object must be in the IMyDate format. For example: {year: 2016, month: 6, day: 26}
-
-[Here](https://github.com/kekeh/mydatepicker/wiki/Initialize-with-selDate-attribute) is an example on how to use this attribute.
 
 ### defaultMonth attribute
 
