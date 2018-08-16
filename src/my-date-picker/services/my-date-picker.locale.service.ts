@@ -348,11 +348,11 @@ export class LocaleService {
             sunHighlight: true
         },
         "lv": {
-            dayLabels: { su: 'S', mo: 'P', tu: 'O', we: 'T', th: 'C', fr: 'P', sa: 'S' },
-            monthLabels: {1: 'Janv', 2: 'Febr', 3: 'Marts', 4: 'Apr', 5: 'Maijs', 6: 'Jūn', 7: 'Jūl', 8: 'Aug', 9: 'Sept', 10: 'Okt', 11: 'Nov', 12: 'Dec'},
-            dateFormat: 'dd.mm.yyyy',
-            todayBtnTxt: 'Šodien',
-            firstDayOfWeek: 'mo',
+            dayLabels: { su: "S", mo: "P", tu: "O", we: "T", th: "C", fr: "P", sa: "S" },
+            monthLabels: {1: "Janv", 2: "Febr", 3: "Marts", 4: "Apr", 5: "Maijs", 6: "Jūn", 7: "Jūl", 8: "Aug", 9: "Sept", 10: "Okt", 11: "Nov", 12: "Dec"},
+            dateFormat: "dd.mm.yyyy",
+            todayBtnTxt: "Šodien",
+            firstDayOfWeek: "mo",
             sunHighlight: true
         }
     };
