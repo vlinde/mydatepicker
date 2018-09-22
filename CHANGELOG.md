@@ -1,3 +1,14 @@
+# 2.6.6 (2018-09-22)
+
+### Bug Fixes
+
+* none
+
+### Features
+
+* Added et locale
+
+
 # 2.6.5 (2018-08-16)
 
 ### Bug Fixes
