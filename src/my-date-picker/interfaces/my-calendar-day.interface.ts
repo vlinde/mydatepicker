@@ -8,4 +8,5 @@ export interface IMyCalendarDay {
     disabled: boolean;
     markedDate: IMyMarkedDate;
     highlight: boolean;
+    setBackground: boolean;
 }

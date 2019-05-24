@@ -567,3 +567,7 @@
 .mydp .icon-mydpremove:before {
     content: "\e806";
 }
+
+.mydp .setBackground {
+    background: #FBEFEF;
+}
