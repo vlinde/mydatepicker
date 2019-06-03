@@ -50,7 +50,6 @@ export declare class MyDatePicker implements OnChanges, ControlValueAccessor, On
     prevMonthId: number;
     currMonthId: number;
     nextMonthId: number;
-    setBackground: boolean;
     opts: IMyOptions;
     constructor(elem: ElementRef, renderer: Renderer, cdr: ChangeDetectorRef, localeService: LocaleService, utilService: UtilService);
     setLocaleOptions(): void;

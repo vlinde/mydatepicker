@@ -709,7 +709,6 @@ var MyDatePicker = (function () {
         this.prevMonthId = MonthId.prev;
         this.currMonthId = MonthId.curr;
         this.nextMonthId = MonthId.next;
-        this.setBackground = false;
         this.opts = {
             dayLabels: {},
             monthLabels: {},
@@ -1239,7 +1238,15 @@ var MyDatePicker = (function () {
         return this.daysInMonth(d.getMonth() + 1, d.getFullYear());
     };
     MyDatePicker.prototype.isCurrDay = function (d, m, y, cmo, today) {
-        return d === today.day && m === today.month && y === today.year && cmo === this.currMonthId;
+        if (m + 1 === today.month) {
+            return d === today.day && y === today.year && cmo === this.nextMonthId;
+        }
+        else if (m - 1 === today.month) {
+            return d === today.day && y === today.year && cmo === this.prevMonthId;
+        }
+        else if (m === today.month) {
+            return d === today.day && m === today.month && y === today.year && cmo === this.currMonthId;
+        }
     };
     MyDatePicker.prototype.getToday = function () {
         var date = new Date();
@@ -1272,7 +1279,6 @@ var MyDatePicker = (function () {
                 var pm = dInPrevM - monthStart + 1;
                 for (var j = pm; j <= dInPrevM; j++) {
                     var date = { year: m === 1 ? y - 1 : y, month: m === 1 ? 12 : m - 1, day: j };
-                    var string_date = date.year + "-" + (date.month - 4) + "-" + date.day;
                     week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo, today),
                         setBackground: this.getDate(date.year, date.month, date.day + 1) < new Date(),
                         disabled: this.utilService.isDisabledDay(date, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableWeekdays, this.opts.disableDays, this.opts.disableDateRanges, this.opts.enableDays),
@@ -1283,7 +1289,6 @@ var MyDatePicker = (function () {
                 var daysLeft = 7 - week.length;
                 for (var j = 0; j < daysLeft; j++) {
                     var date = { year: y, month: m, day: dayNbr };
-                    var string_date = date.year + "-" + (date.month - 1) + "-" + date.day;
                     week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo, today),
                         setBackground: this.getDate(date.year, date.month, date.day + 1) < new Date(),
                         disabled: this.utilService.isDisabledDay(date, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableWeekdays, this.opts.disableDays, this.opts.disableDateRanges, this.opts.enableDays),
