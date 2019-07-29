@@ -60,6 +60,7 @@ export declare class MyDatePicker implements OnChanges, ControlValueAccessor, On
     onMonthCellClicked(cell: IMyCalendarMonth): void;
     onMonthCellKeyDown(event: any, cell: IMyCalendarMonth): void;
     onSelectYearClicked(event: any): void;
+    closeYearMonthSelector(): boolean;
     onYearCellClicked(cell: IMyCalendarYear): void;
     onYearCellKeyDown(event: any, cell: IMyCalendarYear): void;
     onPrevYears(event: any, year: number): void;

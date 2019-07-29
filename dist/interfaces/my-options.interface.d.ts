@@ -60,6 +60,8 @@ export interface IMyOptions {
     ariaLabelNextMonth?: string;
     ariaLabelPrevYear?: string;
     ariaLabelNextYear?: string;
+    showYears?: boolean;
+    showMonths?: boolean;
 }
 export interface IMyDpOptions extends IMyOptions {
 }
