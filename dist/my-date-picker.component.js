@@ -647,7 +647,7 @@ export var MyDatePicker = (function () {
     };
     MyDatePicker.prototype.getToday = function () {
         var date = new Date();
-        return { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() - 7 };
+        return { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() };
     };
     MyDatePicker.prototype.getTimeInMilliseconds = function (date) {
         return this.getDate(date.year, date.month, date.day).getTime();
