@@ -215,7 +215,7 @@ export var MyDatePicker = (function () {
         }
     };
     MyDatePicker.prototype.closeYearMonthSelector = function () {
-        if (!this.opts.showYears) {
+        if (!this.opts.showYears && this.selectYear) {
             var cell = {
                 year: this.visibleMonth.year,
                 currYear: true,
@@ -225,7 +225,7 @@ export var MyDatePicker = (function () {
             };
             this.onYearCellClicked(cell);
         }
-        if (!this.opts.showMonths) {
+        if (!this.opts.showYears && this.selectYear) {
             var cell = {
                 currMonth: false,
                 disabled: false,
