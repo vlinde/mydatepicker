@@ -858,7 +858,7 @@ var MyDatePicker = (function () {
             };
             this.onYearCellClicked(cell);
         }
-        if (!this.opts.showYears && this.selectYear) {
+        if (!this.opts.showMonths && this.selectMonth) {
             var cell = {
                 currMonth: false,
                 disabled: false,
